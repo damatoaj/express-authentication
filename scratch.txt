@@ -5,3 +5,4 @@ sequelize db:migrate
 #Sequelize 5.22 does not play nice with node > 13, so must reinstall, reinstalled everything for good measure
 npm i dotenv ejs express express-ejs-layouts morgan pg sequelize
 
+added in constraints and validations
