@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const {
   Model
 } = require('sequelize');
+// const { is } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -13,6 +14,18 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    validPassword(typedPassword) {
+      let isValid =  bcrypt.compareSync(typedPassword, this.password); //returns a boolean
+      return isValid;
+    }
+
+    toJSON() {
+      let userData = this.get();
+      delete userData.password;
+      return userData;
+    }
+
   };
   user.init({
     email: {
