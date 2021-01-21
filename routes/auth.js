@@ -34,7 +34,7 @@ router.post('/signup', (req,res) => {
         //redirect to /auth/signup
       console.log(`${user.name} has already been taken`);
       req.flash('error', `email already exists`)
-      redirect('/auth/signup');
+      res.redirect('/auth/signup');
     }
   }).catch(err => {
       console.log(`There was an error`)
