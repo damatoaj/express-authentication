@@ -1,9 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const layouts = require('express-ejs-layouts');
+const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('./config/ppConfig')
 const app = express();
+const isLoggedIn = require('./middleware/isLoggedIn')
 
 app.set('view engine', 'ejs');
 
@@ -21,13 +23,23 @@ app.use(session({
 //init passport config MUST HAPPEN AFTER SESSION CONFIG
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+
+//write custom middleware to access the user on every response
+app.use((req, res, next) => {
+  let alerts = req.flash();
+  console.log(alerts);
+  res.locals.alerts = alerts;
+  res.locals.currentUser = req.user;
+  next();
+})
 
 app.get('/', (req, res) => {
   req.session.testVar = 'what up';
   res.render('index');
 });
 
-app.get('/profile', (req, res) => {
+app.get('/profile', isLoggedIn, (req, res) => {
   console.log(req.session.testVar);
   res.render('profile');
 });
