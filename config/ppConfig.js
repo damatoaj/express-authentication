@@ -34,10 +34,12 @@ passport.use(new LocalStrategy({
     }).then(user => {
         //if there is no user AND the user  has an invalid password
         if (user && user.validPassword(password)) {
+            console.log(`${user.email} successfully logged in`)
             //no error, give the user
             cb(null, user);
         } else {
             //no error, false user
+            console.log(`${user.email} did not log in`)
             cb(null, false);
         }
     }).catch(cb)

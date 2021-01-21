@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const layouts = require('express-ejs-layouts');
 const session = require('express-session');
+const passport = require('./config/ppConfig')
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -10,11 +11,16 @@ app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
+
 app.use(session({
   secret:  process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }));
+
+//init passport config MUST HAPPEN AFTER SESSION CONFIG
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/', (req, res) => {
   req.session.testVar = 'what up';
