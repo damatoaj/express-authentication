@@ -25,7 +25,9 @@ router.post('/signup', (req,res) => {
       //redirect to homepage or profile
     if (created) {
       console.log(`${user.name} was created`);
-      res.redirect('/');
+      passport.authenticate('local', {
+        successRedirect: '/'
+      })(req, res);
     } else {
       //else user wasn't created, then there is a user at that email so they can't sign up
         //redirect to /auth/signup
