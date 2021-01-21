@@ -7,3 +7,28 @@ nav ul li {
 h1 {
   color: chartreuse;
 }
+
+.alert-container {
+  width: 50vw;
+  margin: 0 auto;
+  border-radius: 10%;
+  box-shadow:5px 10px slategrey;
+}
+
+.alert {
+  margin: .25em;
+  padding: .25em;
+  background-color: black;
+  opacity: .5;
+  color: white;
+}
+
+.error {
+  border: 3px solid crimson;
+  background-color: salmon;
+}
+
+.success {
+  border: 3px solid forestgreen;
+  background-color: darkgreen;
+}

@@ -27,9 +27,7 @@ app.use(flash());
 
 //write custom middleware to access the user on every response
 app.use((req, res, next) => {
-  let alerts = req.flash();
-  console.log(alerts);
-  res.locals.alerts = alerts;
+  res.locals.alerts = req.flash();
   res.locals.currentUser = req.user;
   next();
 })
