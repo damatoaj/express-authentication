@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const layouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
+const helmet = require('helmet');
 const session = require('express-session');
 const passport = require('./config/ppConfig')
 const app = express();
@@ -13,6 +14,7 @@ app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
+app.use(helmet());
 
 app.use(session({
   secret:  process.env.SESSION_SECRET,
